@@ -1,0 +1,2 @@
+C:\Users\SalesFromscratchAgen\Documents\Roumi\GitHub\runner-mobile-2D\Runner\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\SalesFromscratchAgen\Documents\Roumi\GitHub\runner-mobile-2D\Runner\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
