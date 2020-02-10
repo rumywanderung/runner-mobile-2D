@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Transform Tiles;
+    public GameObject TilesObject;
     public GameObject heart;
     public GameObject heart2;
     public GameObject heart3;
@@ -18,28 +19,35 @@ public class GameManager : MonoBehaviour
     public GameObject fruit5;
     public GameObject fruit6;
 
-    public GameObject screen;
-
     public Text score;
-    public Text highscore = null;
+    public Text highscore;
     public int Points;
-    public int HighPoints = 0;
-    
+    public int HighPoints;
 
     public bool Overed;
+    public bool otherTry = false;
 
-    private void Awake()
+    public void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        HighPoints = 0;
     }
 
-    void Start()
+    public void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Game")
-        {
+        
+    }
 
+    public void Update()
+    {
+
+        if ((SceneManager.GetActiveScene().name == "Game2" || SceneManager.GetActiveScene().name == "Game") && otherTry == false)
+        {
             Points = 0;
             Overed = false;
+            otherTry = true;
+            TilesObject = Instantiate((Resources.Load("Tiles")), new Vector2(0, 0), Quaternion.identity) as GameObject;
+            score = FindObjectOfType<Canvas>().transform.GetChild(1).GetComponent<Text>();
 
             heart = Instantiate((Resources.Load("HEARTOBJECT")), new Vector2(7.98F, 5.88F), Quaternion.identity) as GameObject;
             heart2 = Instantiate((Resources.Load("HEARTOBJECT")), new Vector2(8.62F, 5.88F), Quaternion.identity) as GameObject;
@@ -52,17 +60,14 @@ public class GameManager : MonoBehaviour
             fruit5 = Instantiate((Resources.Load("fruit5")), new Vector2(Random.Range(16, 100), Random.Range(0.22F, 2F)), Quaternion.identity) as GameObject;
             fruit6 = Instantiate((Resources.Load("fruit6")), new Vector2(Random.Range(16, 100), Random.Range(0.22F, 2F)), Quaternion.identity) as GameObject;
 
-            fruit1.transform.SetParent(Tiles);
-            fruit2.transform.SetParent(Tiles);
-            fruit3.transform.SetParent(Tiles);
-            fruit4.transform.SetParent(Tiles);
-            fruit5.transform.SetParent(Tiles);
-            fruit6.transform.SetParent(Tiles);
+            fruit1.transform.SetParent(TilesObject.transform);
+            fruit2.transform.SetParent(TilesObject.transform);
+            fruit3.transform.SetParent(TilesObject.transform);
+            fruit4.transform.SetParent(TilesObject.transform);
+            fruit5.transform.SetParent(TilesObject.transform);
+            fruit6.transform.SetParent(TilesObject.transform);
         }
-    }
 
-    void Update()
-    {
         if (SceneManager.GetActiveScene().name == "GameOver")
         {
             Transform GOScore;
@@ -83,16 +88,21 @@ public class GameManager : MonoBehaviour
                     GOScore.GetComponent<Text>().text = "YOUR SCORE: " + Points.ToString();
                     GOHighscore.GetComponent<Text>().text = "BEST: " + Points.ToString();
                     HighPoints = Points;
+                    Overed = true;
+                    otherTry = false;
                     return;
                 }
                 else if (Points < HighPoints)
                 {
                     GOScore.GetComponent<Text>().text = "YOUR SCORE: " + Points.ToString();
+                    GOHighscore.GetComponent<Text>().text = "BEST: " + HighPoints.ToString();
+                    Overed = true;
+                    otherTry = false;
                     return;
                 }
 
-                Overed = true;
-                DontDestroyOnLoad(GOHighscore.gameObject);
+               
+                //DontDestroyOnLoad(GOHighscore);
             }
         }
     }

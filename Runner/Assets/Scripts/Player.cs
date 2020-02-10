@@ -39,13 +39,12 @@ public class Player : MonoBehaviour
                     SceneManager.LoadScene("GameOver");
                     break;
            }
-            for (int i = 0; i <= 200; i++)
+            for (int j = 0; j <= 200; j++)
             {
                 Debug.Log("Waiting");
             }
             i--;
         }
-
         #endregion
 
         #region Collision fruits
