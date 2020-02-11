@@ -12,6 +12,11 @@ public class Joystick : MonoBehaviour
 
     public Transform circle;
     public Transform outerCircle;
+    private void Start()
+    {
+        Player playerObj = FindObjectOfType<Player>();
+        player = playerObj.GetComponent<Transform>();
+    }
 
     // Update is called once per frame
     void Update()

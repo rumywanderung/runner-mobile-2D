@@ -9,22 +9,25 @@ public class Player : MonoBehaviour
     GameManager manager;
     Canvas canva;
     Transform ScoreText;
+    bool invulnerable;
 
     int i;
 
     void Start()
-    {
+    { 
         manager = FindObjectOfType<GameManager>();
         canva = FindObjectOfType<Canvas>();
         ScoreText = canva.transform.GetChild(1);
         i = 2;
+        invulnerable = false;
+        this.GetComponent<Animator>().speed = 0;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         #region Collision obstacles
 
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "enemy" && invulnerable == false)
         {
            switch (i)
            {
@@ -39,10 +42,9 @@ public class Player : MonoBehaviour
                     SceneManager.LoadScene("GameOver");
                     break;
            }
-            for (int j = 0; j <= 200; j++)
-            {
-                Debug.Log("Waiting");
-            }
+            this.GetComponent<Animator>().speed = 1;
+            invulnerable = true;
+            Invoke("resetInvulnerability", 5);
             i--;
         }
         #endregion
@@ -59,6 +61,11 @@ public class Player : MonoBehaviour
         #endregion
     }
 
+    public void resetInvulnerability()
+    {
+        invulnerable = false;
+        this.GetComponent<Animator>().speed = 0;
+    }
 
     void Update()
     {

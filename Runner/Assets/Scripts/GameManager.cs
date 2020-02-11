@@ -35,13 +35,13 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        
+        Debug.Log(Application.persistentDataPath);
     }
 
     public void Update()
     {
 
-        if ((SceneManager.GetActiveScene().name == "Game2" || SceneManager.GetActiveScene().name == "Game") && otherTry == false)
+        if ((SceneManager.GetActiveScene().name == "GameBis" || SceneManager.GetActiveScene().name == "Game") && otherTry == false)
         {
             Points = 0;
             Overed = false;

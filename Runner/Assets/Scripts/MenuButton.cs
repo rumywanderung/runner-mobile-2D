@@ -23,6 +23,6 @@ public class MenuButton : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("Game2");
+        SceneManager.LoadScene("GameBis");
     }
 }
